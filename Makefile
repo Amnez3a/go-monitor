@@ -1,0 +1,43 @@
+go-monitor: go
+	if command -v apt &> /dev/null; then
+		echo "system use apt"
+		sudo apt update && sudo apt install go
+	elif command -v dnf &> /dev/null; then
+		echo "system use dnf"
+		sudo dnf clean metadata && sudo dnf makecache && sudo dnf install go
+	elif command -v pacman &> /dev/null; then
+		echo "system use pacman"
+		sudo pacman -Sy go
+	elif command -v zypper &> /dev/null; then
+		echo "system use zypper"
+		sudo zypper refresh && zypper install go
+	fi
+
+.PHONY: build run clean
+
+build:
+	go build -o bin/go-monitor .
+
+build-alpine:
+	GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o bin/go-monitor-alpine .
+
+build-docker:
+	docker build -t go-monitor .
+
+run: build
+	./bin/go-monitor --file servers.json --timeout 5
+
+run: build-docker
+	docker run go-monitor --file servers.json
+
+clean:
+	rm -rf bin/
+
+docker-clean:
+	docker rmi go-monitor
+
+help:
+	@echo "Доступные команды:"
+	@echo "  make build  - собрать бинарник"
+	@echo "  make run    - запустить"
+	@echo "  make clean  - удалить bin/"

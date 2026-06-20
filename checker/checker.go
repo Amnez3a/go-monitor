@@ -12,7 +12,7 @@ type TCPChecker struct {
 }
 
 func (t TCPChecker) Check(s server.Server) string {
-	addr := fmt.Sprintf("%s:%d", s.IP, s.Port)
+	addr := net.JoinHostPort(s.IP, fmt.Sprintf("%d", s.Port))
 	start := time.Now()
 	conn, err := net.DialTimeout(
 		"tcp", addr, t.Timeout,

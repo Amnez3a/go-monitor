@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go-monitor/api"
 	"go-monitor/checker"
 	"go-monitor/server"
 	"os"
@@ -41,4 +42,11 @@ func main() {
 		}(srv)
 	}
 	wg.Wait()
+	// web
+	a := &api.API{
+		Servers: servers,
+		Checker: c,
+	}
+	go api.StartServer(a)
+	time.Sleep(30 * time.Second)
 }

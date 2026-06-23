@@ -1,4 +1,4 @@
-name: Build & Release 
+name: Tests & Build & Release 
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
           files: dist/*
           tag_name: "release-${{ github.run_number }}"
           name: "Release v${{ github.run_number }}"
-          body: "Автоматический релиз сборки №${{ github.run_number }}"
+          body: "№${{ github.run_number }}"
           draft: false
           prerelease: false
         env:

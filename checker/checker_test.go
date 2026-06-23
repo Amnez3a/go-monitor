@@ -1,8 +1,9 @@
 package checker
 
 import (
-	"go-monitor/server"
 	"testing"
+
+	"go-monitor/server"
 )
 
 type MockCheckher struct {

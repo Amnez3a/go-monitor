@@ -1,0 +1,49 @@
+name: Tests & Build & Release 
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test ./...
+
+      - name: Build Cross-Platform Binaries
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          mkdir -p dist
+          GOOS=linux GOARCH=amd64 go build -o dist/go-monitor-linux-amd64 .
+          GOOS=windows GOARCH=amd64 go build -o dist/go-monitor-windows-amd64.exe .
+          GOOS=darwin GOARCH=amd64 go build -o dist/go-monitor-darwin-amd64 .
+
+      - name: Create Release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          tag_name: "release-${{ github.run_number }}"
+          name: "Release v${{ github.run_number }}"
+          body: "№${{ github.run_number }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

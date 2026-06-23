@@ -2,9 +2,10 @@ package checker
 
 import (
 	"fmt"
-	"go-monitor/server"
 	"net"
 	"time"
+
+	"go-monitor/server"
 )
 
 type TCPChecker struct {

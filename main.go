@@ -4,13 +4,36 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"go-monitor/api"
-	"go-monitor/checker"
-	"go-monitor/server"
 	"os"
 	"sync"
 	"time"
+
+	"go-monitor/checker"
+	"go-monitor/server"
 )
+
+func clearScreen() {
+	fmt.Print("\033[H\033[2J")
+}
+
+func runAllChecks(servers []server.Server, c checker.TCPChecker) {
+	clearScreen()
+
+	var wg sync.WaitGroup
+	for _, srv := range servers {
+		wg.Add(1)
+		go func(s server.Server) {
+			defer wg.Done()
+			result := c.Check(s)
+			fmt.Println(result)
+		}(srv)
+	}
+	wg.Wait()
+
+	fmt.Println("\n--------------------------------------------------")
+	fmt.Println("Enter - reload stats")
+	fmt.Println("Ctrl+\\ - exit")
+}
 
 func main() {
 	file := flag.String("file", "servers.json", "path to file")
@@ -31,22 +54,9 @@ func main() {
 	}
 
 	c := checker.TCPChecker{Timeout: time.Duration(*timeout) * time.Second}
-
-	var wg sync.WaitGroup
-	for _, srv := range servers {
-		wg.Add(1)
-		go func(s server.Server) {
-			defer wg.Done()
-			result := c.Check(s)
-			fmt.Println(result)
-		}(srv)
+	runAllChecks(servers, c)
+	for {
+		fmt.Scanln()
+		runAllChecks(servers, c)
 	}
-	wg.Wait()
-	// web
-	a := &api.API{
-		Servers: servers,
-		Checker: c,
-	}
-	go api.StartServer(a)
-	time.Sleep(30 * time.Second)
 }

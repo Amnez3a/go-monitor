@@ -30,13 +30,10 @@ jobs:
       - name: Build Cross-Platform Binaries
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          mkdir dist
-          
-          GOOS=linux GOARCH=amd64 go build -o dist/go-monitor-linux-amd64 ./...
-          
-          GOOS=windows GOARCH=amd64 go build -o dist/go-monitor-windows-amd64.exe ./...
-          
-          GOOS=darwin GOARCH=amd64 go build -o dist/go-monitor-darwin-amd64 ./...
+          mkdir -p dist
+          GOOS=linux GOARCH=amd64 go build -o dist/go-monitor-linux-amd64 .
+          GOOS=windows GOARCH=amd64 go build -o dist/go-monitor-windows-amd64.exe .
+          GOOS=darwin GOARCH=amd64 go build -o dist/go-monitor-darwin-amd64 .
 
       - name: Create Release
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

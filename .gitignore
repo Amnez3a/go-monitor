@@ -1,4 +1,3 @@
 bin/
 dist/
-go-monitor-alpine
 *.tar.gz

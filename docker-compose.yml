@@ -1,4 +1,0 @@
-services:
-  go-monitor:
-    build: .
-    command: ["./app", "--file", "servers.json", "--timeout", "3"]

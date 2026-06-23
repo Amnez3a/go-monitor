@@ -7,7 +7,7 @@
 *Go-monitor* берет данные о серверах с [servers.json](). Или же можно указать путь к файлу через флаг --file
 
 ```bash
-./bin/go-monitor --file $USER/nameFile.jsonc 
+./bin/go-monitor --file $USER/nameFile.json 
 ```
 
 ### Сборка / Docker

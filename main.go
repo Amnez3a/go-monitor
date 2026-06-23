@@ -53,7 +53,7 @@ func main() {
 		return
 	}
 
-	c := checker.TCPChecker{Timeout: time.Duration(*timeout) * time.Second} // check ms
+	c := checker.TCPChecker{Timeout: time.Duration(*timeout) * time.Second}
 	runAllChecks(servers, c)
 	for {
 		fmt.Scanln()

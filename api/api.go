@@ -1,7 +1,6 @@
 package api
 
 import (
-	"strings"
 	"encoding/json"
 	"fmt"
 	"go-monitor/checker"
@@ -26,25 +25,30 @@ type API struct {
 }
 
 func (a *API) statusHandler(w http.ResponseWriter, r *http.Request) {
-	var statusResult []StatusServer
-	for _, s := range a.Servers {
-		result := a.Checker.Check(s)
-		fmt.Println("DEBUG:", result)
-		online := strings.HasPrefix(result, "[✓]")
-		statusResult = append(statusResult, StatusServer{
-			Name:    s.Name,
-			Online:  online,
-			Address: s.IP,
-		})
+	// only post-method [TEST]
+	if r.Method != http.MethodPost {
+		fmt.Println(w, "only post-method", http.StatusMethodNotAllowed)
+		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"servers": statusResult,
-	})
+	var statusResult []StatusServer
+	err := json.NewDecoder(r.Body).Decode(&statusResult)
+	if err != nil {
+		http.Error(w, "bad request: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+	w.Header().Set("Content-Type", "text/plain; charset=UTF-8") // default text
+	for _, server := range statusResult {
+		statusText := "offline"
+		if server.Online {
+			statusText = "online"
+		}
+		fmt.Fprintf(w, "%s [%s] : [%s]\n", server.Name, server.Address, statusText)
+	}
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello, Go!")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Status: %d", http.StatusOK)
 }
 
 func health(w http.ResponseWriter, r *http.Request) {

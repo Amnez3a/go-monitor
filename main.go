@@ -8,7 +8,9 @@ import (
 	"go-monitor/checker"
 	"go-monitor/server"
 	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 	"time"
 )
 
@@ -48,5 +50,7 @@ func main() {
 		Checker: c,
 	}
 	go api.StartServer(a)
-	time.Sleep(30 * time.Second)
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
 }

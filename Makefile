@@ -18,9 +18,6 @@ go-monitor: go
 build:
 	go build -o bin/go-monitor .
 
-build-alpine:
-	GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o bin/go-monitor-alpine .
-
 build-docker:
 	docker build -t go-monitor .
 

@@ -1,7 +1,0 @@
-[
-  {
-    "name": "Google DNS", // alias | string
-    "ip": "8.8.8.8", // ipv4/6 addr | string
-    "port": 80
-  }
-]

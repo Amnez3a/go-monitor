@@ -36,5 +36,6 @@ docker-clean:
 help:
 	@echo "Доступные команды:"
 	@echo "  make build  - собрать бинарник"
+	@echo "  make build-docker - собрать в docker контейнер"
 	@echo "  make run    - запустить"
 	@echo "  make clean  - удалить bin/"

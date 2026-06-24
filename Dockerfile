@@ -1,10 +1,12 @@
 FROM golang:1.26-alpine AS builder
-WORKDIR /app
+WORKDIR /app 
+COPY go.mod ./
+RUN go mod download
 COPY . .
-RUN go build -o app .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /go-monitor .
 
-FROM alpine:latest
-WORKDIR /app
-COPY --from=builder /app/app .
-COPY --from=builder /app/servers.json .
-CMD [ "./app" ]
+FROM alpine:3.20
+WORKDIR /root/
+COPY --from=builder /go-monitor .
+COPY servers.json .
+CMD [ "./go-monitor" ]

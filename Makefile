@@ -21,11 +21,17 @@ build:
 build-docker:
 	docker build -t go-monitor .
 
+build-i386:
+	GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o bin/go-monitor .
+
 run: build
-	./bin/go-monitor --file servers.json --timeout 5
+	./bin/go-monitor
 
 run: build-docker
-	docker run go-monitor --file servers.json
+	docker run -it go-monitor
+
+run: build-i386
+	./bin/go-monitor
 
 clean:
 	rm -rf bin/
@@ -37,5 +43,6 @@ help:
 	@echo "Доступные команды:"
 	@echo "  make build  - собрать бинарник"
 	@echo "  make build-docker - собрать в docker контейнер"
+	@echo "  make build-i386 - собрать под i386"
 	@echo "  make run    - запустить"
 	@echo "  make clean  - удалить bin/"

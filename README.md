@@ -13,9 +13,3 @@
 ### Сборка / Docker
 
 см. [Makefile](https://github.com/Amnez3a/go-monitor/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
-
-### Зависимости
-
-1. go
-
-больше ничего и не надо.

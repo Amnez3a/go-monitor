@@ -36,7 +36,7 @@ func runAllChecks(servers []server.Server, c checker.TCPChecker) {
 }
 
 func main() {
-	file := flag.String("file", "servers.json", "path to file")
+	file := flag.String("file", "servers.json", "path to json")
 	timeout := flag.Int("timeout", 3, "timeout of seconds")
 	flag.Parse()
 

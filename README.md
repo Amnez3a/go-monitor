@@ -1,15 +1,21 @@
 # Go-monitor
 
-## CLI Программа для мониторинга серверов
+## CLI Server Monitoring Program
 
-### Использование
+### Usage
 
-*Go-monitor* берет данные о серверах с [servers.json](https://github.com/Amnez3a/go-monitor/blob/main/example-configuration.json). Или же можно указать путь к файлу через флаг --file
+*Go-monitor* gets server data from [servers.json](https://github.com/Amnez3a/go-monitor/blob/main/example-configuration.json). Alternatively, you can specify the path to the file using the --file flag
+
 ```bash
-./bin/go-monitor --file $USER/nameFile.json 
+./bin/go-monitor --file $USER/nameFile.json
 ```
-Если Go-monitor будет запущен в директории в которой есть servers.json, он сразу подхватит файл
 
-### Сборка / Docker
+If *Go-monitor* is run in a directory that contains servers.json, it will immediately pick up the file
 
-см. [Makefile](https://github.com/Amnez3a/go-monitor/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
+### Build / Docker
+
+See [Makefile](https://github.com/Amnez3a/go-monitor/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
+
+#### RU
+
+[README-RU](https://github.com/Amnez3a/go-monitor/blob/main/README-RU.md)

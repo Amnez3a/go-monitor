@@ -54,10 +54,10 @@ docker-clean:
 
 help:
 	@echo "Доступные команды:"
-	@echo "  make build        - собрать бинарник"
-	@echo "  make build-docker - собрать в docker контейнер"
-	@echo "  make run          - запустить бинарь"
-	@echo "  make run-docker   - запустить docker образ"
-	@echo "  make clean        - удалить bin/"
-	@echo "  make install      - установить go-monitor в $(HOME)/.local/bin"
-	@echo "  make uninstall    - удалить go-monitor из $(HOME)/.local/bin"
+	@echo "  make build        - build binary"
+	@echo "  make build-docker - make docker image"
+	@echo "  make run          - run bin/go-monitor"
+	@echo "  make run-docker   - run docker image"
+	@echo "  make clean        - remove bin/"
+	@echo "  make install      - install go-monitor to $(HOME)/.local/bin"
+	@echo "  make uninstall    - uninstall go-monitor from $(HOME)/.local/bin"

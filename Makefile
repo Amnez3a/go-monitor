@@ -23,10 +23,22 @@ INSTALL_PATH=$(INSTALL_DIR)$(NAME)
 build:
 	go build -o $(BIN_DIR)$(NAME) main.go
 
+build-windows:
+	GOOS=windows GOARCH=amd64 go build -o $(BIN_DIR)$(NAME) main.go
+
+build-macos:
+	GOOS=darwin GOARCH=amd64 go build -o $(BIN_DIR)$(NAME) main.go
+
 build-docker:
 	docker build -t $(NAME) .
 
 run: build
+	./$(BIN_DIR)$(NAME) --file servers.json
+
+run-windows:: build-windows
+	./$(BIN_DIR)$(NAME) --file servers.json
+
+run-macos: build-macos
 	./$(BIN_DIR)$(NAME) --file servers.json
 
 run-docker: build-docker
@@ -50,7 +62,7 @@ clean:
 	rm -f bin/
 
 docker-clean:
-	docker rmi go-monitor
+	docker rmi $(NAME)
 
 help:
 	@echo "Доступные команды:"

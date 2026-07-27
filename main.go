@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go-monitor/checker"
+	"go-monitor/server"
 	"os"
 	"sync"
 	"time"
-
-	"go-monitor/checker"
-	"go-monitor/server"
 )
 
 func clearScreen() {

@@ -33,16 +33,16 @@ build-docker:
 	docker build -t $(NAME) .
 
 run: build
-	./$(BIN_DIR)$(NAME) --file servers.json
+	./$(BIN_DIR)$(NAME)
 
 run-windows:: build-windows
-	./$(BIN_DIR)$(NAME) --file servers.json
+	.\$(BIN_DIR)$(NAME) # powershell
 
 run-macos: build-macos
-	./$(BIN_DIR)$(NAME) --file servers.json
+	./$(BIN_DIR)$(NAME)
 
-run-docker: build-docker
-	docker run go-monitor --file servers.json
+run-docker: 
+	docker run -ti $(NAME)
 
 install:
 	@mkdir -p $(INSTALL_DIR)
@@ -62,10 +62,10 @@ clean:
 	rm -f bin/
 
 docker-clean:
-	docker rmi $(NAME)
+	docker rmi -f $(NAME)
 
 help:
-	@echo "Доступные команды:"
+	@echo "Commands:"
 	@echo "  make build        - build binary"
 	@echo "  make build-docker - make docker image"
 	@echo "  make run          - run bin/go-monitor"

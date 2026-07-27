@@ -7,4 +7,6 @@ FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/app .
 COPY --from=builder /app/servers.json .
-CMD [ "./app" ]
+ENTRYPOINT [ "./app" ]
+CMD [ "--file", "servers.json" ]
+

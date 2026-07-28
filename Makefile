@@ -16,34 +16,34 @@ go-monitor: go
 .PHONY: build run clean install uninstall
 
 NAME=go-monitor
-BIN_DIR=bin/
+BIN_DIR=bin
 INSTALL_DIR=$(HOME)/.local/bin/
 INSTALL_PATH=$(INSTALL_DIR)$(NAME)
 
 build:
-	go build -o $(BIN_DIR)$(NAME) main.go
+	go build -o $(BIN_DIR)/$(NAME) main.go
 
 build-windows:
-	GOOS=windows GOARCH=amd64 go build -o $(BIN_DIR)$(NAME) main.go
+	GOOS=windows GOARCH=amd64 go build -o $(BIN_DIR)/$(NAME) main.go
 
 build-macos:
-	GOOS=darwin GOARCH=amd64 go build -o $(BIN_DIR)$(NAME) main.go
+	GOOS=darwin GOARCH=amd64 go build -o $(BIN_DIR)/$(NAME) main.go
 
 build-docker:
 	docker build -t $(NAME) .
 
 run: build
-	./$(BIN_DIR)$(NAME)
+	./$(BIN_DIR)/$(NAME)
 
-run-windows:: build-windows
-	.\$(BIN_DIR)$(NAME) # powershell
+run-windows: build-windows
+	.\$(BIN_DIR)\$(NAME) # powershell
 
 run-macos: build-macos
-	./$(BIN_DIR)$(NAME)
+	./$(BIN_DIR)/$(NAME)
 
 run-docker: 
 	docker run -ti $(NAME)
-
+	
 install:
 	@mkdir -p $(INSTALL_DIR)
 	go build -o $(INSTALL_PATH) main.go
@@ -59,7 +59,7 @@ uninstall:
 	fi
 
 clean:
-	rm -f bin/
+	rm -f $($BIN_DIR)/*
 
 docker-clean:
 	docker rmi -f $(NAME)

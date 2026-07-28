@@ -1,0 +1,25 @@
+stages:
+  - test
+  - build
+  - release
+
+variables:
+  GO_VERSION: "1.26"
+
+test:
+  stage: test
+  image: golang:${GO_VERSION}
+  script:
+    - go test ./...
+
+release:
+  stage: release
+  image: golang:${GO_VERSION}
+  script:
+    - mkdir -p dist/
+    - go build -o dist/go-monitor .
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - tags

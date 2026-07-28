@@ -42,7 +42,7 @@ run-macos: build-macos
 	./$(BIN_DIR)/$(NAME)
 
 run-docker: 
-	docker run -ti $(NAME)
+	docker run -ti --rm -v ./servers.json:/app/servers.json $(NAME)
 	
 install:
 	@mkdir -p $(INSTALL_DIR)

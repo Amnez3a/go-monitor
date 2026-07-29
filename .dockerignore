@@ -1,0 +1,10 @@
+.git
+.gitignore
+.github
+.gitlab-ci.yml
+bin/
+LICENSE
+Makefile
+Dockerfile
+*.md
+

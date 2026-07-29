@@ -10,4 +10,3 @@ WORKDIR /app
 ENTRYPOINT [ "./app" ]
 CMD [ "--file", "servers.json" ]
 COPY --from=builder /app/app .
-

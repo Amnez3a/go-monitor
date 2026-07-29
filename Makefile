@@ -32,6 +32,9 @@ build-macos:
 build-docker:
 	docker build -t $(NAME) .
 
+build-i386:
+	GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o bin/go-monitor .
+
 run: build
 	./$(BIN_DIR)/$(NAME)
 

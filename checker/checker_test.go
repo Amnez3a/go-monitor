@@ -2,6 +2,7 @@ package checker
 
 import (
 	"testing"
+	"time"
 
 	"go-monitor/server"
 )
@@ -14,20 +15,10 @@ func (m MockCheckher) Check(s server.Server) string {
 	return m.Result
 }
 
-func TestOnlineServer(t *testing.T) {
-	mock := MockCheckher{Result: "[✓] Alpine online"}
-	result := mock.Check(server.Server{Name: "Alpine"})
-
-	if result != "[✓] Alpine online" {
-		t.Errorf("got %s, want [✓] Alpine online", result)
-	}
-}
-
-func TestOffline(t *testing.T) {
-	mock := MockCheckher{Result: "[✗] Alpine offline"}
-	result := mock.Check(server.Server{Name: "Alpine"})
-
-	if result != "[✗] Alpine offline" {
-		t.Errorf("got %s, want [✗] Alpine offline", result)
+func TestFormatResultOnline(t *testing.T) {
+	result := formatResult("Alpine", "10.0.0.1:22", true, 15*time.Millisecond)
+	want := "[✓] Alpine               10.0.0.1:22  online  15.00ms"
+	if result != want {
+		t.Errorf("got %q, want %q", result, want)
 	}
 }

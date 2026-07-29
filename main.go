@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go-monitor/checker"
+	"go-monitor/server"
 	"os"
 	"sync"
 	"time"
-
-	"go-monitor/checker"
-	"go-monitor/server"
 )
 
 func clearScreen() {
@@ -36,7 +35,7 @@ func runAllChecks(servers []server.Server, c checker.TCPChecker) {
 }
 
 func main() {
-	file := flag.String("file", "servers.json", "path to file")
+	file := flag.String("file", "servers.json", "path to json")
 	timeout := flag.Int("timeout", 3, "timeout of seconds")
 	flag.Parse()
 

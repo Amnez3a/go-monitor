@@ -1,0 +1,9 @@
+Dockerfile
+.git
+.github
+.gitignore
+.gitlab-ci.yml
+LICENSE
+Makefile
+README.md
+README-RU.md

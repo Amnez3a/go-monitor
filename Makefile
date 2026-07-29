@@ -13,36 +13,66 @@ go-monitor: go
 		sudo zypper refresh && zypper install go
 	fi
 
-.PHONY: build run clean
+.PHONY: build run clean install uninstall
+
+NAME=go-monitor
+BIN_DIR=bin
+INSTALL_DIR=$(HOME)/.local/bin/
+INSTALL_PATH=$(INSTALL_DIR)$(NAME)
 
 build:
-	go build -o bin/go-monitor .
+	go build -o $(BIN_DIR)/$(NAME) main.go
+
+build-windows:
+	GOOS=windows GOARCH=amd64 go build -o $(BIN_DIR)/$(NAME) main.go
+
+build-macos:
+	GOOS=darwin GOARCH=amd64 go build -o $(BIN_DIR)/$(NAME) main.go
 
 build-docker:
-	docker build -t go-monitor .
+	docker build -t $(NAME) .
 
 build-i386:
 	GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o bin/go-monitor .
 
 run: build
-	./bin/go-monitor
+	./$(BIN_DIR)/$(NAME)
 
-run: build-docker
-	docker run -it go-monitor
+run-windows: build-windows
+	.\$(BIN_DIR)\$(NAME) # powershell
 
-run: build-i386
-	./bin/go-monitor
+run-macos: build-macos
+	./$(BIN_DIR)/$(NAME)
+
+run-docker: 
+	docker run -ti --rm -v ./servers.json:/app/servers.json $(NAME)
+	
+install:
+	@mkdir -p $(INSTALL_DIR)
+	go build -o $(INSTALL_PATH) main.go
+	@echo "installed to $(INSTALL_PATH)"
+	@echo "set path $(HOME)/.local/bin"
+
+uninstall:
+	@if [ -f $(INSTALL_PATH) ]; then \
+		rm -f $(INSTALL_PATH); \
+		echo "uninstalled from $(INSTALL_DIR)/"; \
+	else \
+		echo "nothing to uninstall (file not found)"; \
+	fi
 
 clean:
-	rm -rf bin/
+	rm -f $($BIN_DIR)/*
 
 docker-clean:
-	docker rmi go-monitor
+	docker rmi -f $(NAME)
 
 help:
-	@echo "Доступные команды:"
-	@echo "  make build  - собрать бинарник"
-	@echo "  make build-docker - собрать в docker контейнер"
-	@echo "  make build-i386 - собрать под i386"
-	@echo "  make run    - запустить"
-	@echo "  make clean  - удалить bin/"
+	@echo "Commands:"
+	@echo "  make build        - build binary"
+	@echo "  make build-docker - make docker image"
+	@echo "  make run          - run bin/go-monitor"
+	@echo "  make run-docker   - run docker image"
+	@echo "  make clean        - remove bin/"
+	@echo "  make install      - install go-monitor to $(HOME)/.local/bin"
+	@echo "  make uninstall    - uninstall go-monitor from $(HOME)/.local/bin"

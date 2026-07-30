@@ -9,7 +9,7 @@ import (
 
 var watchCmd = &cobra.Command{
 	Use:   "watch",
-	Short: "A brief description of your command",
+	Short: "Static mode",
 	Run: func(cmd *cobra.Command, args []string) {
 		interval, _ := cmd.Flags().GetDuration("interval")
 		monitor.Watch(interval)

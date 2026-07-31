@@ -4,7 +4,7 @@
 
 ### Использование
 
-*Go-monitor* берет данные о серверах с [servers.json](https://gitlab.com/amnes0a/go-monitor/-/blob/main/example-configuration.json?ref_type=heads). Или же можно указать путь к файлу через флаг --file
+*Go-monitor* берет данные о серверах с [servers.json](https://github.com/Amnez3a/go-monitor/blob/main/example-configuration.json). Или же можно указать путь к файлу через флаг --file
 
 ```bash
 ./bin/go-monitor --file $USER/nameFile.json 
@@ -14,8 +14,14 @@
 
 ### Сборка / Docker
 
-см. [Makefile](https://gitlab.com/amnes0a/go-monitor/-/blob/main/Makefile?ref_type=heads) & [Dockerfile](https://gitlab.com/amnes0a/go-monitor/-/blob/main/Makefile?ref_type=heads)
+см. [Makefile](https://github.com/Amnez3a/go-monitor/-/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
 
 #### EN
 
-[README-EN](https://gitlab.com/amnes0a/go-monitor/-/blob/main/README.md?ref_type=heads)
+[README-EN](https://github.com/Amnz3a/go-monitor/blob/main/README.md)
+
+***
+
+### Форки
+
+[go-monitor-docker](https://github.com/Amnez3a/go-monitor/tree/go-monitor-docker)

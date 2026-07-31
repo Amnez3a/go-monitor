@@ -14,7 +14,7 @@ If Go-monitor is run in a directory containing servers.json, it will immediately
 
 ### Build / Docker
 
-See [Makefile](https://github.com/Amnez3a/go-monitor/-/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
+See [Makefile](https://github.com/Amnez3a/go-monitor/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
 
 #### EN
 

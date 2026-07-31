@@ -14,11 +14,11 @@
 
 ### Сборка / Docker
 
-см. [Makefile](https://github.com/Amnez3a/go-monitor/-/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
+см. [Makefile](https://github.com/Amnez3a/go-monitor/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
 
 #### EN
 
-[README-EN](https://github.com/Amnz3a/go-monitor/blob/main/README.md)
+[README-EN](https://github.com/Amnez3a/go-monitor/blob/main/README.md)
 
 ***
 

@@ -16,9 +16,9 @@ If Go-monitor is run in a directory containing servers.json, it will immediately
 
 See [Makefile](https://github.com/Amnez3a/go-monitor/blob/main/Makefile) & [Dockerfile](https://github.com/Amnez3a/go-monitor/blob/main/Dockerfile)
 
-#### EN
+#### RU
 
-[README-EN](https://github.com/Amnz3a/go-monitor/blob/main/README.md)
+[README-RU](https://github.com/Amnez3a/go-monitor/blob/main/README-RU.md)
 
 ***
 

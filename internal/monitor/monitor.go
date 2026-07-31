@@ -31,8 +31,9 @@ func Watch(interval time.Duration) {
 				continue
 			}
 			clearScreen()
+			fmt.Println("Watch mode\n----------------")
 			for _, c := range containers {
-				fmt.Printf("%s | %s | %s\n", c.ID, c.Name, c.Status)
+				fmt.Printf("| %s | %s | %s |\n", c.ID, c.Name, c.Status)
 			}
 		}
 	}
